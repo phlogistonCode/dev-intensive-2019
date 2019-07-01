@@ -1,4 +1,4 @@
-package com.phlogiston.devintensive.module
+package com.phlogiston.devintensive.models
 
 import com.phlogiston.devintensive.utils.Utils
 import java.util.*

@@ -1,6 +1,6 @@
 package com.phlogiston.devintensive
 
-import com.phlogiston.devintensive.module.User
+import com.phlogiston.devintensive.models.User
 import org.junit.Test
 
 import org.junit.Assert.*

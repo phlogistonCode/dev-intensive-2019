@@ -1,4 +1,4 @@
-package com.phlogiston.devintensive.module
+package com.phlogiston.devintensive.models
 
 class Chat(
     val id: String,
