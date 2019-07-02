@@ -1,5 +1,6 @@
 package com.phlogiston.devintensive.models
 
+import com.phlogiston.devintensive.extensions.humanizeDiff
 import java.util.*
 
 class TextMessage(
@@ -11,7 +12,7 @@ class TextMessage(
     var text: String?
 ) : BaseMessage(id, from, chat, isIncoming, date) {
 
-    override fun formatMessage(): String {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+    override fun formatMessage(): String = "id: $id ${from?.firstName} " +
+            "${if(isIncoming) "получил" else "отправил"} сообщение \"$text\" ${date.humanizeDiff()}"
+
 }
