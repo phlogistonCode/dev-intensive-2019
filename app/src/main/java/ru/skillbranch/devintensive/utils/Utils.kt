@@ -1,4 +1,4 @@
-package com.phlogiston.devintensive.utils
+package ru.skillbranch.devintensive.utils
 
 import java.lang.StringBuilder
 

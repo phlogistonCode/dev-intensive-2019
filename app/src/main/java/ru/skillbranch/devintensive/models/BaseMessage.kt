@@ -1,4 +1,4 @@
-package com.phlogiston.devintensive.models
+package ru.skillbranch.devintensive.models
 
 import java.util.*
 
@@ -17,8 +17,22 @@ abstract class BaseMessage(
             cacheId++
 
             return when(type) {
-                "image" -> ImageMessage("$cacheId", from, chat, isIncoming, date, payload as String)
-                else -> TextMessage("$cacheId", from, chat, isIncoming, date, payload as String)
+                "image" -> ImageMessage(
+                    "$cacheId",
+                    from,
+                    chat,
+                    isIncoming,
+                    date,
+                    payload as String
+                )
+                else -> TextMessage(
+                    "$cacheId",
+                    from,
+                    chat,
+                    isIncoming,
+                    date,
+                    payload as String
+                )
             }
         }
     }

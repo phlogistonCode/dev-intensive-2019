@@ -1,6 +1,6 @@
-package com.phlogiston.devintensive.models
+package ru.skillbranch.devintensive.models
 
-import com.phlogiston.devintensive.extensions.humanizeDiff
+import ru.skillbranch.devintensive.extensions.humanizeDiff
 import java.util.*
 
 class TextMessage(
