@@ -91,6 +91,8 @@ class ExampleUnitTest {
         println(Date().add(-5, TimeUnits.DAY).humanizeDiff()) //5 дней назад
         println(Date().add(2, TimeUnits.MINUTE).humanizeDiff()) //через 2 минуты
         println(Date().add(21, TimeUnits.MINUTE).humanizeDiff()) //через 21 минуту
+        println(Date().add(22, TimeUnits.MINUTE).humanizeDiff()) //через 22 минуты
+        println(Date().add(12, TimeUnits.MINUTE).humanizeDiff()) //через 12 минут
         println(Date().add(-5, TimeUnits.MINUTE).humanizeDiff()) //5 минут назад
         println(Date().add(7, TimeUnits.DAY).humanizeDiff()) //через 7 дней
         println(Date().add(-400, TimeUnits.DAY).humanizeDiff()) //более года назад
@@ -113,5 +115,10 @@ class ExampleUnitTest {
         println("${user1.firstName}")
         println("${user2.firstName}")
         println("${user2.lastName}")
+    }
+
+    @Test
+    fun test(){
+        println(Date().time)
     }
 }

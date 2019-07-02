@@ -38,18 +38,21 @@ fun Date.humanizeDiff(date: Date = Date()) : String {
     val message: String
 
     val textMinutes = when {
+        difMinutes in 5..20L -> "минут"
         difMinutes % 10 == 1L -> "минуту"
         difMinutes % 10 in 2..4L -> "минуты"
         else -> "минут"
     }
 
     val textHours = when {
+        difHours in 5..20L -> "часов"
         difHours % 10 == 1L -> "час"
         difHours % 10 in 2..4L -> "часа"
         else -> "часов"
     }
 
     val textDays = when {
+        difDays in 2..20L -> "дней"
         difDays % 10 == 1L -> "день"
         difDays % 10 in 2..4L -> "дня"
         else -> "дней"
