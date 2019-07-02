@@ -86,12 +86,32 @@ class ExampleUnitTest {
 
     @Test
     fun test_task8() {
+        println(Date().add(-5, TimeUnits.SECOND).humanizeDiff()) //несколько секунд назад
         println(Date().add(-2, TimeUnits.HOUR).humanizeDiff()) //2 часа назад
         println(Date().add(-5, TimeUnits.DAY).humanizeDiff()) //5 дней назад
         println(Date().add(2, TimeUnits.MINUTE).humanizeDiff()) //через 2 минуты
+        println(Date().add(21, TimeUnits.MINUTE).humanizeDiff()) //через 21 минуту
+        println(Date().add(-5, TimeUnits.MINUTE).humanizeDiff()) //5 минут назад
         println(Date().add(7, TimeUnits.DAY).humanizeDiff()) //через 7 дней
         println(Date().add(-400, TimeUnits.DAY).humanizeDiff()) //более года назад
         println(Date().add(400, TimeUnits.DAY).humanizeDiff()) //более чем через год
+    }
 
+    @Test
+    fun test_task9() {
+        val user1 = User.Builder().id("1")
+            .firstName("vasya")
+            .lastName("pupkin")
+            .avatar("1235987.jpg")
+            .rating(4)
+            .respect(3)
+            .lastVisit(Date())
+            .isOnline(true)
+            .build()
+        val user2 = User.Builder().firstName("abs").lastName("sba").avatar("123.jpg").build()
+
+        println("${user1.firstName}")
+        println("${user2.firstName}")
+        println("${user2.lastName}")
     }
 }
