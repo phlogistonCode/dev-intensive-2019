@@ -90,8 +90,48 @@ fun Date.humanizeDiff(date: Date = Date()) : String {
 }
 
 enum class TimeUnits {
-    SECOND,
-    MINUTE,
-    HOUR,
-    DAY
+    SECOND{
+        fun plural(value:Int) : String {
+            val text = when {
+                value in 5..20 -> "секунд"
+                value % 10 == 1 -> "секунду"
+                value % 10 in 2..4 -> "секунды"
+                else -> "секунд"
+            }
+            return "$value $text"
+        }
+    },
+    MINUTE{
+        fun plural(value:Int) : String {
+            val text = when {
+                value in 5..20 -> "минут"
+                value % 10 == 1 -> "минуту"
+                value % 10 in 2..4 -> "минуты"
+                else -> "минут"
+            }
+            return "$value $text"
+        }
+    },
+    HOUR{
+        fun plural(value:Int) : String {
+            val text = when {
+                value in 5..20 -> "часов"
+                value % 10 == 1 -> "час"
+                value % 10 in 2..4 -> "часа"
+                else -> "часов"
+            }
+            return "$value $text"
+        }
+    },
+    DAY{
+        fun plural(value:Int) : String {
+            val text = when {
+                value in 5..20 -> "дней"
+                value % 10 == 1 -> "день"
+                value % 10 in 2..4 -> "дня"
+                else -> "дней"
+            }
+            return "$value $text"
+        }
+    };
 }
