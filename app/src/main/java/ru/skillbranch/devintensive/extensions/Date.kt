@@ -91,7 +91,7 @@ fun Date.humanizeDiff(date: Date = Date()) : String {
 
 enum class TimeUnits {
     SECOND{
-        fun plural(value:Int) : String {
+        override fun plural(value:Int) : String {
             val text = when {
                 value in 5..20 -> "секунд"
                 value % 10 == 1 -> "секунду"
@@ -102,7 +102,7 @@ enum class TimeUnits {
         }
     },
     MINUTE{
-        fun plural(value:Int) : String {
+        override fun plural(value:Int) : String {
             val text = when {
                 value in 5..20 -> "минут"
                 value % 10 == 1 -> "минуту"
@@ -113,7 +113,7 @@ enum class TimeUnits {
         }
     },
     HOUR{
-        fun plural(value:Int) : String {
+        override fun plural(value:Int) : String {
             val text = when {
                 value in 5..20 -> "часов"
                 value % 10 == 1 -> "час"
@@ -124,7 +124,7 @@ enum class TimeUnits {
         }
     },
     DAY{
-        fun plural(value:Int) : String {
+        override fun plural(value:Int) : String {
             val text = when {
                 value in 5..20 -> "дней"
                 value % 10 == 1 -> "день"
@@ -134,4 +134,6 @@ enum class TimeUnits {
             return "$value $text"
         }
     };
+
+    abstract fun plural(value: Int) : String
 }
