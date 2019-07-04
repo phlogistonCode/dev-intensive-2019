@@ -31,6 +31,6 @@ fun String.truncate(num: Int = 16): String {
     val result = this.trim()
     return when {
         result.length <= num + 1 -> result
-        else -> "${result.take(num).trimEnd()}..."
+        else -> "${result.take(num + 1).trimEnd()}..."
     }
 }
