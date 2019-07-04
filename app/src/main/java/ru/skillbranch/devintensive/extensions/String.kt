@@ -30,7 +30,7 @@ fun String.stripHtml(): String {
 fun String.truncate(num: Int = 16): String {
     val result = this.trim()
     return when {
-        result.length <= num -> result
+        result.length <= num + 1 -> result
         else -> "${result.take(num).trimEnd()}..."
     }
 }
