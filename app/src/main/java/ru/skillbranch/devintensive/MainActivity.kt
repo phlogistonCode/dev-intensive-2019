@@ -3,13 +3,10 @@ package ru.skillbranch.devintensive
 import android.graphics.Color
 import android.graphics.PorterDuff
 import android.os.Bundle
-import android.util.Log
-import android.view.inputmethod.EditorInfo
 import androidx.appcompat.app.AppCompatActivity
 import com.phlogiston.devintensive.R
 import kotlinx.android.synthetic.main.activity_main.*
 import ru.skillbranch.devintensive.extensions.hideKeyboard
-import ru.skillbranch.devintensive.extensions.isKeyboardOpen
 import ru.skillbranch.devintensive.models.Bender
 
 class MainActivity : AppCompatActivity() {
@@ -53,10 +50,6 @@ class MainActivity : AppCompatActivity() {
             hideKeyboard()
 
             return@setOnEditorActionListener true
-        }
-
-        iv_bender.setOnClickListener {
-            Log.d("KEYBOARD", isKeyboardOpen().toString())
         }
     }
 
