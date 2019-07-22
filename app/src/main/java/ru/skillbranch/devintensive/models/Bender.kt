@@ -1,7 +1,6 @@
 package ru.skillbranch.devintensive.models
 
 class Bender(var status: Status = Status.NORMAL, var question: Question = Question.NAME) {
-    var incorrect = 0
 
     fun askQuestion(): String = when (question) {
         Question.NAME -> Question.NAME.question
@@ -40,18 +39,15 @@ class Bender(var status: Status = Status.NORMAL, var question: Question = Questi
             }
             question.answers.contains(answer.toLowerCase()) -> {
                 question = question.nextQuestion()
-                incorrect = 0
                 "Отлично - ты справился\n${question.question}" to status.color
             }
-            incorrect >= 3 -> {
+            status.name == "CRITICAL" -> {
                 status = Status.NORMAL
                 question = Question.NAME
-                incorrect = 0
                 "Это неправильный ответ. Давай все по новой\n${question.question}" to status.color
             }
             else -> {
                 status = status.nextStatus()
-                incorrect++
                 "Это неправильный ответ\n${question.question}" to status.color
             }
         }
