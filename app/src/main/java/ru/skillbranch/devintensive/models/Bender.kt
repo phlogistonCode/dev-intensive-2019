@@ -17,22 +17,22 @@ class Bender(var status: Status = Status.NORMAL, var question: Question = Questi
                 "Введите что-нибудь :)" to status.color
             }
             question == Question.NAME && answer.first().isLowerCase() -> {
-                "Имя должно начинаться с заглавной буквы" to status.color
+                "Имя должно начинаться с заглавной буквы\n${question.question}" to status.color
             }
             question == Question.PROFESSION && answer.first().isUpperCase() -> {
-                "Профессия должна начинаться со строчной буквы" to status.color
+                "Профессия должна начинаться со строчной буквы\n${question.question}" to status.color
             }
             question == Question.MATERIAL && answer.contains(Regex("\\d+")) -> {
-                "Материал не должен содержать цифр" to status.color
+                "Материал не должен содержать цифр\n${question.question}" to status.color
             }
             question == Question.BDAY && answer.contains(Regex("[^0-9]")) -> {
-                "Год моего рождения должен содержать только цифры" to status.color
+                "Год моего рождения должен содержать только цифры\n${question.question}" to status.color
             }
             question == Question.SERIAL && answer.contains(Regex("[^0-9]")) -> {
-                "Серийный номер содержит только цифры, и их 7" to status.color
+                "Серийный номер содержит только цифры, и их 7\n${question.question}" to status.color
             }
             question == Question.SERIAL && answer.length != 7 -> {
-                "Серийный номер содержит только цифры, и их 7" to status.color
+                "Серийный номер содержит только цифры, и их 7\n${question.question}" to status.color
             }
             question == Question.IDLE -> {
                 "На этом все, вопросов больше нет" to status.color
