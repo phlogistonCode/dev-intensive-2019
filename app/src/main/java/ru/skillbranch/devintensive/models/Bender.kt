@@ -13,7 +13,6 @@ class Bender(var status: Status = Status.NORMAL, var question: Question = Questi
     }
 
     fun listenAnswer(answer: String): Pair<String, Triple<Int, Int, Int>> {
-
         return when {
             answer.isEmpty() -> {
                 "Введите что-нибудь :)" to status.color
@@ -43,7 +42,7 @@ class Bender(var status: Status = Status.NORMAL, var question: Question = Questi
                 question = question.nextQuestion()
                 "Отлично - ты справился\n${question.question}" to status.color
             }
-            incorrect >= 3 -> {
+            incorrect > 3 -> {
                 status = Status.NORMAL
                 question = Question.NAME
                 incorrect = 0
