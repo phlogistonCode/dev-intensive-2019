@@ -40,9 +40,10 @@ class Bender(var status: Status = Status.NORMAL, var question: Question = Questi
             }
             question.answers.contains(answer.toLowerCase()) -> {
                 question = question.nextQuestion()
+                incorrect = 0
                 "Отлично - ты справился\n${question.question}" to status.color
             }
-            incorrect > 3 -> {
+            incorrect >= 3 -> {
                 status = Status.NORMAL
                 question = Question.NAME
                 incorrect = 0
