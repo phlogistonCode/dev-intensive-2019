@@ -1,115 +1,96 @@
 package ru.skillbranch.devintensive.utils
 
+import android.content.Context
 import java.lang.StringBuilder
+import android.util.DisplayMetrics
+
+
 
 object Utils {
-    fun parseFullName(fullName: String?) : Pair<String?, String?> {
-        val partsOfName: List<String>? = if (!fullName.isNullOrBlank() && !fullName.isNullOrEmpty())
-            fullName.split(" ")
-        else null
+    fun parseFullName(fullName: String?): Pair<String?, String?>{
+        val parts = fullName?.trim()?.split(" ")
+        val firstName = parts?.getOrNull(0)?.ifEmpty { null }
+        val lastName = parts?.getOrNull(1)?.ifEmpty { null }
 
-        val firstName = partsOfName?.getOrNull(0)
-        val lastName = partsOfName?.getOrNull(1)
         return firstName to lastName
     }
 
-    fun parseFullName(fullName: String?, clear: Boolean) : Pair<String?, String?> {
-        val partsOfName: List<String>?
-        if (!fullName.isNullOrBlank() && !fullName.isNullOrEmpty())
-            partsOfName = fullName.split(" ")
-        else if (!clear) partsOfName = "Ai Bolit".split(" ")
-        else partsOfName = null
+    fun transliteration(payload: String, divider: String = " "): String {
+        val map = fillTranslitMap()
+        val builder = StringBuilder()
 
-        val firstName = partsOfName?.getOrNull(0)
-        val lastName = partsOfName?.getOrNull(1)
-        return firstName to lastName
+        for (char in payload.trim())
+            builder.append(getTranslChar(char, map))
+
+        return builder.toString().replace(" ", divider)
+    }
+
+    private fun getTranslChar(char: Char, map: HashMap<Char, String>): String {
+        val transl  = map[char.toLowerCase()] ?: char.toString()
+
+        return if (char.isUpperCase() && transl.isNotEmpty())
+            transl.capitalize()
+        else transl
+    }
+
+    private fun fillTranslitMap(): HashMap<Char, String> {
+        val map = hashMapOf<Char, String>()
+        map['а'] = "a"
+        map['б'] = "b"
+        map['в'] = "v"
+        map['г'] = "g"
+        map['д'] = "d"
+        map['е'] = "e"
+        map['ё'] = "e"
+        map['ж'] = "zh"
+        map['з'] = "z"
+        map['и'] = "i"
+        map['й'] = "i"
+        map['к'] = "k"
+        map['л'] = "l"
+        map['м'] = "m"
+        map['н'] = "n"
+        map['о'] = "o"
+        map['п'] = "p"
+        map['р'] = "r"
+        map['с'] = "s"
+        map['т'] = "t"
+        map['у'] = "u"
+        map['ф'] = "f"
+        map['х'] = "h"
+        map['ц'] = "c"
+        map['ч'] = "ch"
+        map['ш'] = "sh"
+        map['щ'] = "sh'"
+        map['ъ'] = ""
+        map['ы'] = "i"
+        map['ь'] = ""
+        map['э'] = "e"
+        map['ю'] = "yu"
+        map['я'] = "ya"
+
+        return map
     }
 
     fun toInitials(firstName: String?, lastName: String?): String? {
-        val firstWord = if (!firstName.isNullOrBlank() && !firstName.isNullOrEmpty())
-         firstName.first()
-        else null
-        val secondWord = if (!lastName.isNullOrBlank() && !lastName.isNullOrEmpty())
-            lastName.first()
-        else null
-
-        val initials: String? = if (firstWord == null && secondWord == null) null
-        else if (secondWord == null) firstWord.toString()
-        else firstWord?.toString()?.plus(secondWord) ?: secondWord.toString()
-
-        return initials?.toUpperCase()
+        val name = firstName.orEmpty().trim().getOrNull(0)?.toUpperCase()
+        val surname = lastName.orEmpty().trim().getOrNull(0)?.toUpperCase()
+        val firstInit = name?.toString() ?: ""
+        val secondInit = surname?.toString() ?: ""
+        return "$firstInit$secondInit".ifEmpty { null }
     }
 
-    fun transliteration(payload: String?, divider: String? = " ") : String? {
-        val translitMap = mapOf(
-            "а" to "a",
-            "б" to "b",
-            "в" to "v",
-            "г" to "g",
-            "д" to "d",
-            "е" to "e",
-            "ё" to "e",
-            "ж" to "zh",
-            "з" to "z",
-            "и" to "i",
-            "й" to "i",
-            "к" to "k",
-            "л" to "l",
-            "м" to "m",
-            "н" to "n",
-            "о" to "o",
-            "п" to "p",
-            "р" to "r",
-            "с" to "s",
-            "т" to "t",
-            "у" to "u",
-            "ф" to "f",
-            "х" to "h",
-            "ц" to "c",
-            "ч" to "ch",
-            "ш" to "sh",
-            "щ" to "sh'",
-            "ъ" to "",
-            "ы" to "i",
-            "ь" to "",
-            "э" to "e",
-            "ю" to "yu",
-            "я" to "ya"
-        )
-        val englishWords = "ABCDEFGHIKLMNOPQRSTVWXYZ"
+    fun convertPxToDp(context: Context, px: Int): Int {
+        val scale = context.resources.displayMetrics.density
+        return (px / scale + 0.5f).toInt()
+    }
 
-        val sb = StringBuilder()
-        payload?.forEach { payloadChar ->
-            if (!payloadChar.isUpperCase()) {
-                if (payloadChar.isWhitespace() || payloadChar == '_' || payloadChar == "$divider".toCharArray().first())
-                    sb.append(divider)
+    fun convertDpToPx(context: Context, dp: Int): Int {
+        val scale = context.resources.displayMetrics.density
+        return (dp * scale + 0.5f).toInt()
+    }
 
-                englishWords.forEach {
-                    if (it.toString().toLowerCase() == payloadChar.toString().toLowerCase()) sb.append(it.toLowerCase())
-                }
-
-                translitMap.keys.forEach {
-                    if (it == payloadChar.toString().toLowerCase()) sb.append(translitMap.getValue(it))
-                }
-            } else {
-                englishWords.forEach {
-                    if (it.toString().toLowerCase() == payloadChar.toString().toLowerCase()) sb.append(it.toUpperCase())
-                }
-                translitMap.keys.forEach {key ->
-                    if (key == payloadChar.toString().toLowerCase()) {
-                        if (translitMap.getValue(key).length > 1) {
-                            translitMap.getValue(key).forEach {
-                                if (it == translitMap.getValue(key).first())
-                                    sb.append(it.toUpperCase())
-                                else sb.append(it)
-                            }
-                        } else sb.append(translitMap.getValue(key).toUpperCase())
-                    }
-                }
-            }
-        }
-
-        return if (payload == null) null
-        else sb.toString()
+    fun convertSpToPx(context: Context, sp: Int): Int {
+        return sp * context.resources.displayMetrics.scaledDensity.toInt()
     }
 }
